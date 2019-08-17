@@ -1,6 +1,5 @@
-// in javascript objects are passed to functions are same instances
-// and are delivered via links, so changing some object
-// inside other function will change the initial object instance
+const stack = []
+
 const depthFirstSearch = ({
 	graph,
 	nodeLabel,
@@ -8,24 +7,26 @@ const depthFirstSearch = ({
 	times,
 	config,
 }) => {
-	const { vertices, edges } = graph
-	const { currentSourceVertex } = config
+	graph.vertices[nodeLabel].explored = true
+	leaders[nodeLabel] = config.currentSourceVertex
 
-	vertices[nodeLabel].explored = true
-	leaders[nodeLabel] = currentSourceVertex
+	if (graph.edges[nodeLabel]) {
+		const connectedVerticesLabels = Object.keys(graph.edges[nodeLabel])
 
-	const connectedVerticesLabels = Object.keys(edges[nodeLabel])
-	connectedVerticesLabels.forEach(endLabel => {
-		if (vertices[endLabel].explored === false) {
-			depthFirstSearch({
-				graph,
-				nodeLabel: endLabel,
-				leaders,
-				times,
-				config,
-			})
+		for (let i = 0; i < connectedVerticesLabels.length; i++) {
+			const endLabel = connectedVerticesLabels[i]
+
+			if (graph.vertices[endLabel].explored === false) {
+				depthFirstSearch({
+					graph,
+					nodeLabel: endLabel,
+					leaders,
+					times,
+					config,
+				})
+			}
 		}
-	})
+	}
 
 	config.timesCount++
 	times[nodeLabel] = config.timesCount

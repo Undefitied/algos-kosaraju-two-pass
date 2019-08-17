@@ -152,3 +152,104 @@ it('depthFirstSearch, case #2', done => {
 	});
 })
 
+it('depthFirstSearch, case #5, start from 1', done => {
+	fs.readFile('./tests/testCases/5.txt', 'utf8', (err, data) => {
+		if (err) throw err;
+
+		const {
+			vertices,
+			edges,
+		} = formatData(data)
+
+		const graph = {
+			vertices,
+			edges
+		}
+
+		const firstVertex = Object.keys(vertices)[0]
+		const leaders = {}
+		const times = {}
+
+		const config = {
+			timesCount: 0,
+			currentSourceVertex: null, // doesn't really matter for this test case
+		}
+
+		depthFirstSearch({
+			graph,
+			nodeLabel: firstVertex,
+			leaders,
+			times,
+			config,
+		})
+
+		expect(vertices).toEqual({
+			1: {
+				explored: true,
+			},
+			2: {
+				explored: false,
+			},
+			3: {
+				explored: false,
+			},
+			4: {
+				explored: false,
+			},
+		})
+
+		done()
+	});
+})
+
+it('depthFirstSearch, case #5, start from 4', done => {
+	fs.readFile('./tests/testCases/5.txt', 'utf8', (err, data) => {
+		if (err) throw err;
+
+		const {
+			vertices,
+			edges,
+		} = formatData(data)
+
+		const graph = {
+			vertices,
+			edges
+		}
+
+		const verticesKeys = Object.keys(vertices)
+		const firstVertex = verticesKeys[verticesKeys.length - 1]
+		const leaders = {}
+		const times = {}
+
+		const config = {
+			timesCount: 0,
+			currentSourceVertex: null, // doesn't really matter for this test case
+		}
+
+		depthFirstSearch({
+			graph,
+			nodeLabel: firstVertex,
+			leaders,
+			times,
+			config,
+		})
+
+		expect(vertices).toEqual({
+			1: {
+				explored: true,
+			},
+			2: {
+				explored: true,
+			},
+			3: {
+				explored: true,
+			},
+			4: {
+				explored: true,
+			},
+		})
+
+		done()
+	});
+})
+

@@ -3,6 +3,7 @@ module.exports = dataString => {
 
 	let vertices = {}
 	let edges = {}
+	let edgesReversed = {}
 
 	rows.forEach((rowString) => {
 		const row = rowString.split(' ')
@@ -12,8 +13,17 @@ module.exports = dataString => {
 		edges[label] = edges[label] ? edges[label] : {}
 		edges[label][endLabel] = true
 
+		edgesReversed[endLabel] = edgesReversed[endLabel] ? edgesReversed[endLabel] : {}
+		edgesReversed[endLabel][label] = true
+
 		if (!vertices[label]) {
 			vertices[label] = {
+				explored: false
+			}
+		}
+
+		if (!vertices[endLabel]) {
+			vertices[endLabel] = {
 				explored: false
 			}
 		}
@@ -22,5 +32,6 @@ module.exports = dataString => {
 	return {
 		edges,
 		vertices,
+		edgesReversed,
 	}
 }

@@ -60,11 +60,12 @@ it('depthFirstSearchLoop, case #2', done => {
 		const {
 			vertices,
 			edges,
+			edgesReversed,
 		} = formatData(data)
 
 		const graph = {
 			vertices,
-			edges
+			edges: edgesReversed
 		}
 
 		const leaders = {}
@@ -105,6 +106,8 @@ it('depthFirstSearchLoop, case #2', done => {
 				explored: true,
 			},
 		})
+
+		// todo calculate on paper and fill with correct values
 
 		// expect(times).toEqual({
 		// 	1: 7,

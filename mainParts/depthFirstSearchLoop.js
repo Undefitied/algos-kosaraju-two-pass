@@ -17,6 +17,7 @@ module.exports = ({
 		let label = verticesLabels[i]
 
 		if (vertices[label].explored === false) {
+			console.log('#', verticesLabels.length - i, label, ':', vertices[label].explored)
 			config.currentSourceVertex = label
 
 			depthFirstSearch({
@@ -25,7 +26,14 @@ module.exports = ({
 				leaders,
 				times,
 				config,
+				// idea, add recursionCounter for debug
+				// finished, reading article with java implementation using some "Stack" type
+				// idea, try to run python code
+				// Идея: если я запущу операцию #745(ту, где фейл) отдельно, я должен пойти нахуй
 			})
+
+			console.log('#', verticesLabels.length - i, label, ':', vertices[label].explored)
+
 		}
 	}
 }
